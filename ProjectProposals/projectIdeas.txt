@@ -1,0 +1,7 @@
+Project Ideas:
+
+1. Instagram post scheduler - allows user to upload media and schedule when it publishes
+
+2. **Playlist Converter - converts spotify music playlists to youtube playlists and vice versa 
+
+3. Guitar Chord Generator - creates a randomly generated sequence of chords including chord charts

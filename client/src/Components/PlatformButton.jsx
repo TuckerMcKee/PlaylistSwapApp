@@ -1,6 +1,6 @@
 import React from "react";
-import {redirectToSpotifyLogin} from "./spotifyAuth";
-import redirectToYoutubeLogin from "./youtubeAuth";
+import {redirectToSpotifyLogin} from "../Auth/spotifyAuth";
+import redirectToYoutubeLogin from "../Auth/youtubeAuth";
 
 const PlatformButton = ({platform}) => {
    

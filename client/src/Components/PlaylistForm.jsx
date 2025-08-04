@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import SpotifyApi from "./SpotifyApi";
-import YoutubeApi from "./YoutubeApi";
+import SpotifyApi from "../Apis/SpotifyApi";
+import YoutubeApi from "../Apis/YoutubeApi";
 import LinkBox from "./LinkBox";
 import "./PlaylistForm.css";
 let token;

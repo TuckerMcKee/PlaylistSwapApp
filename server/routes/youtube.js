@@ -7,6 +7,18 @@ import ytRefreshToken from '../middleware/ytRefreshToken.js';
 import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import {RedisStore} from "connect-redis"
+import {createClient} from "redis"
+
+// Initialize client.
+let redisClient = createClient()
+redisClient.connect().catch(console.error)
+
+// Initialize store.
+let redisStore = new RedisStore({
+  client: redisClient,
+  prefix: "myapp:",
+})
 
 // Required for __dirname in ES modules
 const __filename = fileURLToPath(import.meta.url);
@@ -22,6 +34,7 @@ const key = process.env.YOUTUBE_API_KEY;
 const router = new express.Router();
 
 router.use(session({
+    store: redisStore,
     secret: process.env.SECRET_KEY || 'default-secret-key',
     resave: false,
     saveUninitialized: false,

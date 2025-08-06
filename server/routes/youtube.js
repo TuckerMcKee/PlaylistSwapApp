@@ -10,8 +10,17 @@ import { fileURLToPath } from 'url';
 import {RedisStore} from "connect-redis"
 import {createClient} from "redis"
 
+// Required for __dirname in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Load .env from server folder
+dotenv.config({ path: path.resolve(__dirname, '../.env') });
+
 // Initialize client.
-let redisClient = createClient()
+let redisClient = createClient({
+    url: process.env.REDIS_URL 
+  })
 redisClient.connect().catch(console.error)
 
 // Initialize store.
@@ -20,15 +29,9 @@ let redisStore = new RedisStore({
   prefix: "myapp:",
 })
 
-// Required for __dirname in ES modules
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// Load .env from server folder
-dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
 const {oauth2Client} = youtubeAuth;
-const YT_BASE_URL = process. env.YOUTUBE_API;
+const YT_BASE_URL = process.env.YOUTUBE_API;
 const CLIENT_URL = process.env.CLIENT_URL;
 const key = process.env.YOUTUBE_API_KEY;
 const router = new express.Router();

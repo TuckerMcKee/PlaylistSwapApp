@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import ScaleLoader from "react-spinners";
+import {ScaleLoader} from "react-spinners";
 import SpotifyApi from "../Apis/SpotifyApi";
 import YoutubeApi from "../Apis/YoutubeApi";
 import LinkBox from "./LinkBox";

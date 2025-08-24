@@ -2,9 +2,9 @@ import React from 'react';
 import { BrowserRouter,Routes,Route } from 'react-router';
 import PlatformMenu from './Components/PlatformMenu';
 import PlaylistForm from './Components/PlaylistForm';
-import FetchToken from './FetchToken';
-import './App.css'
-import NavBar from './NavBar';
+import FetchToken from './Components/FetchToken';
+import './Styles/App.css'
+import NavBar from './Components/NavBar';
 
 function App() {
 

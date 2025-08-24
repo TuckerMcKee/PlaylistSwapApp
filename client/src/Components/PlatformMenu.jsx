@@ -1,6 +1,6 @@
 import React from "react";
 import PlatformButton from "./PlatformButton";
-import './PlatformMenu.css';
+import '../Styles/PlatformMenu.css';
 
 const PlatformMenu = () => {
     return (

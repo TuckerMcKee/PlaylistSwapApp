@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import SpotifyApi from "../Apis/SpotifyApi";
 import YoutubeApi from "../Apis/YoutubeApi";
 import LinkBox from "./LinkBox";
-import "./PlaylistForm.css";
+import "../Styles/PlaylistForm.css";
 let token;
 
 const PlaylistForm = () => {

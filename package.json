@@ -18,6 +18,7 @@
     "express": "^4.21.2",
     "express-session": "^1.18.1",
     "googleapis": "^148.0.0",
+    "react-spinners": "^0.17.0",
     "redis": "^5.7.0"
   },
   "devDependencies": {

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import ScaleLoader from "react-spinners";
 import SpotifyApi from "../Apis/SpotifyApi";
 import YoutubeApi from "../Apis/YoutubeApi";
 import LinkBox from "./LinkBox";
@@ -11,6 +12,7 @@ const PlaylistForm = () => {
   const navigate = useNavigate();
   token = localStorage.getItem("access_token");
   const [errMsg, setErrMsg] = useState(null);
+  const [isLoading,setIsLoading] = useState(false);
   const [notFoundSongs, setNotFoundSongs] = useState([]);
   const [newPlaylistUrl, setNewPlaylistUrl] = useState(null);
 
@@ -38,16 +40,20 @@ const PlaylistForm = () => {
     try {
       if (!formData.playlistUrl) return setErrMsg("URL required!");
       else if (platform === "spotify") {
+        setIsLoading(true);
         const res = await SpotifyApi.handleConversion(
           formData.playlistUrl,
           token
         );
+        setIsLoading(false);
         setNewPlaylistUrl(res.spotifyUrl);
         if (res.notFound[0]) setNotFoundSongs(res.notFound);
       } else if (platform === "youtube") {
+        setIsLoading(true);
         const { playlistUrl, notFound } = await YoutubeApi.handleConversion(
           formData.playlistUrl
         );
+        setIsLoading(false);
         setNewPlaylistUrl(playlistUrl);
         if (notFound[0]) setNotFoundSongs(notFound);
       }
@@ -73,6 +79,7 @@ const PlaylistForm = () => {
       </form>
       {/* <button className="home-btn" onClick={() => navigate('/')}>Home</button> */}
       <p id="err-container">{errMsg ? errMsg : null}</p>
+      <ScaleLoader loading={isLoading}/>
       {newPlaylistUrl ? <LinkBox link={newPlaylistUrl} /> : null}
       <section>
         {notFoundSongs[0] && platform === "spotify" ? (

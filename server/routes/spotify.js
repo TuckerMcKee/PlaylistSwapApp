@@ -35,7 +35,6 @@ router.use(session({
     store: redisStore,
     secret: process.env.SECRET_KEY || 'default-secret-key',
     resave: false,
-    saveUninitialized: true,
     cookie: { secure: true } // Secure should be true in production (HTTPS)
   }));
 

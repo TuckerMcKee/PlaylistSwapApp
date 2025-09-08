@@ -1,5 +1,5 @@
 import express from 'express';
-import session from 'express-session';
+// import session from 'express-session';
 import axios from 'axios';
 import parseYoutubeTitle from '../helpers/parseYoutubeTitle.js';
 import youtubeAuth from '../helpers/youtubeAuth.js';
@@ -7,8 +7,8 @@ import ytRefreshToken from '../middleware/ytRefreshToken.js';
 import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import {RedisStore} from "connect-redis"
-import {createClient} from "redis"
+// import {RedisStore} from "connect-redis"
+// import {createClient} from "redis"
 
 // Required for __dirname in ES modules
 const __filename = fileURLToPath(import.meta.url);
@@ -18,16 +18,16 @@ const __dirname = path.dirname(__filename);
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
 // Initialize client.
-let redisClient = createClient({
-    url: process.env.REDIS_URL 
-  })
-redisClient.connect().catch(console.error)
+// let redisClient = createClient({
+//     url: process.env.REDIS_URL 
+//   })
+// redisClient.connect().catch(console.error)
 
-// Initialize store.
-let redisStore = new RedisStore({
-  client: redisClient,
-  prefix: "myapp:",
-})
+// // Initialize store.
+// let redisStore = new RedisStore({
+//   client: redisClient,
+//   prefix: "myapp:",
+// })
 
 
 const {oauth2Client} = youtubeAuth;
@@ -36,13 +36,13 @@ const CLIENT_URL = process.env.CLIENT_URL;
 const key = process.env.YOUTUBE_API_KEY;
 const router = new express.Router();
 
-router.use(session({
-    store: redisStore,
-    secret: process.env.SECRET_KEY || 'default-secret-key',
-    resave: false,
-    saveUninitialized: false,
-    cookie: { secure: false } // Secure should be true in production (HTTPS)
-  })); 
+// router.use(session({
+//     store: redisStore,
+//     secret: process.env.SECRET_KEY || 'default-secret-key',
+//     resave: false,
+//     saveUninitialized: false,
+//     cookie: { secure: false } // Secure should be true in production (HTTPS)
+//   })); 
 
 router.get('/songs/:playlistId', async (req,res,next) => {
     try { 

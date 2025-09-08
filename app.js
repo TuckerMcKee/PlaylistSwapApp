@@ -5,6 +5,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import youtubeRoutes from './server/routes/youtube.js';
 import spotifyRoutes from './server/routes/spotify.js';
+import redisSession from './server/middleware/session.js';
 dotenv.config()
 const CLIENT_URL = process.env.CLIENT_URL;
 
@@ -21,6 +22,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.set('trust proxy', 1);
 app.use(express.json());
+app.use(redisSession);
 app.use('/youtube',youtubeRoutes);
 app.use('/spotify',spotifyRoutes);
 

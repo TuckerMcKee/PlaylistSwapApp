@@ -1,18 +1,9 @@
 import express from 'express';
 import axios from 'axios';
 import getToken from '../helpers/spotifyAuth.js';
-import dotenv from 'dotenv';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import { SPOTIFY_API } from '../config/index.js';
 
-// Required for __dirname in ES modules
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// Load .env from server folder
-dotenv.config({ path: path.resolve(__dirname, '../.env') });
-
-const SPOTIFY_BASE_URL = process.env.SPOTIFY_API;
+const SPOTIFY_BASE_URL = SPOTIFY_API;
 const router = new express.Router();
 
 router.use(async (req, res, next) => {

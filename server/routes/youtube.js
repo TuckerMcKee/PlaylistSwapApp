@@ -3,21 +3,11 @@ import axios from 'axios';
 import parseYoutubeTitle from '../helpers/parseYoutubeTitle.js';
 import youtubeAuth from '../helpers/youtubeAuth.js';
 import ytRefreshToken from '../middleware/ytRefreshToken.js';
-import dotenv from 'dotenv';
-import path from 'path';
-import { fileURLToPath } from 'url';
-
-// Required for __dirname in ES modules
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// Load .env from server folder
-dotenv.config({ path: path.resolve(__dirname, '../.env') });
+import { YOUTUBE_API, CLIENT_URL, YOUTUBE_API_KEY } from '../config/index.js';
 
 const {oauth2Client} = youtubeAuth;
-const YT_BASE_URL = process.env.YOUTUBE_API;
-const CLIENT_URL = process.env.CLIENT_URL;
-const key = process.env.YOUTUBE_API_KEY;
+const YT_BASE_URL = YOUTUBE_API;
+const key = YOUTUBE_API_KEY;
 const router = new express.Router();
 
 router.get('/songs/:playlistId', async (req,res,next) => {

@@ -1,17 +1,8 @@
 import axios from "axios";
-import dotenv from 'dotenv';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import { SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET } from '../config/index.js';
 
-// Required for __dirname in ES modules
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// Load .env from server folder
-dotenv.config({ path: path.resolve(__dirname, '../.env') });
-
-const client_id = process.env.SPOTIFY_CLIENT_ID;      
-const client_secret = process.env.SPOTIFY_CLIENT_SECRET;  
+const client_id = SPOTIFY_CLIENT_ID;      
+const client_secret = SPOTIFY_CLIENT_SECRET;  
 
 // Base64 encode the client_id and client_secret
 const authHeader = Buffer.from(`${client_id}:${client_secret}`).toString('base64');

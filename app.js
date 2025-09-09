@@ -1,13 +1,11 @@
 import express from 'express';
 import cors from 'cors';
-import dotenv from 'dotenv'
 import path from "path";
 import { fileURLToPath } from "url";
 import youtubeRoutes from './server/routes/youtube.js';
 import spotifyRoutes from './server/routes/spotify.js';
 import redisSession from './server/middleware/session.js';
-dotenv.config()
-const CLIENT_URL = process.env.CLIENT_URL;
+import { CLIENT_URL } from './server/config/index.js';
 
 const app = express();
 

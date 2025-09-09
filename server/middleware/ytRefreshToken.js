@@ -1,9 +1,7 @@
-import express from 'express';
 import youtubeAuth from '../helpers/youtubeAuth.js';
 const {oauth2Client} = youtubeAuth;
-const router = new express.Router();
 
-router.use(async (req,res,next) => {
+const ytRefreshToken = async (req,res,next) => {
     // Check if the token is expiring
     if (oauth2Client.isTokenExpiring()) {
         try {
@@ -16,6 +14,6 @@ router.use(async (req,res,next) => {
         }
     }
     next();
-})
+}
 
-export default router;
+export default ytRefreshToken;

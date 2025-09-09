@@ -10,7 +10,7 @@ const ytRefreshToken = async (req,res,next) => {
             oauth2Client.setCredentials(credentials);
         } catch (error) {
             console.log('Error refreshing token: ', error);
-            
+            next(error);
         }
     }
     next();

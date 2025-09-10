@@ -19,6 +19,7 @@ const {
   GOOGLE_CLIENT_SECRET,
   REDIS_URL,
   SECRET_KEY,
+  DATABASE_URL
 } = process.env;
 
 export {
@@ -33,4 +34,5 @@ export {
   GOOGLE_CLIENT_SECRET,
   REDIS_URL,
   SECRET_KEY,
+  DATABASE_URL
 };

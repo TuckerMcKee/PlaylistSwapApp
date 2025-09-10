@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import path from "path";
 import { fileURLToPath } from "url";
+import authRoutes from './server/routes/auth.js';
 import youtubeRoutes from './server/routes/youtube.js';
 import spotifyRoutes from './server/routes/spotify.js';
 import redisSession from './server/middleware/session.js';
@@ -21,6 +22,7 @@ app.use(cors(corsOptions));
 app.set('trust proxy', 1);
 app.use(express.json());
 app.use(redisSession);
+app.use('/auth',authRoutes);
 app.use('/youtube',youtubeRoutes);
 app.use('/spotify',spotifyRoutes);
 

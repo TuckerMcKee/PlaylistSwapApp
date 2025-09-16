@@ -1,3 +1,6 @@
+import { readFile } from 'fs/promises';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import pkg from 'pg';
 import { DATABASE_URL } from '../config/index.js';
 
@@ -15,5 +18,23 @@ const pool = new Pool({
       }
     : {}),
 });
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const schemaPath = path.resolve(__dirname, 'schema.sql');
+
+let initializationPromise;
+
+export async function initializeDatabase() {
+  if (!initializationPromise) {
+    initializationPromise = (async () => {
+      const schema = await readFile(schemaPath, 'utf-8');
+      await pool.query(schema);
+    })();
+  }
+
+  return initializationPromise;
+}
+
 
 export default pool;

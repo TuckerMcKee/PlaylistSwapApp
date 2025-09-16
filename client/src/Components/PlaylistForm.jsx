@@ -27,8 +27,8 @@ const PlaylistForm = () => {
   const INITIAL_STATE = { playlistUrl: "" };
   const [formData, setFormData] = useState(INITIAL_STATE);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  const handleChange = (event) => {
+    const { name, value } = event.target;
     setFormData((formData) => ({
       ...formData,
       [name]: value,
@@ -58,8 +58,8 @@ const PlaylistForm = () => {
         if (notFound[0]) setNotFoundSongs(notFound);
       }
       return setFormData(INITIAL_STATE);
-    } catch (e) {
-      setErrMsg(e.message);
+    } catch (event) {
+      setErrMsg(event.message);
     }
   };
   return (

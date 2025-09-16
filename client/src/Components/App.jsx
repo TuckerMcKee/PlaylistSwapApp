@@ -5,8 +5,8 @@ import PlaylistForm from './PlaylistForm';
 import FetchToken from './FetchToken';
 import '../Styles/App.css';
 import NavBar from './NavBar';
-import Login from './Components/Login';
-import Register from './Components/Register';
+import Login from './Login';
+import Register from './Register';
 
 function App() {
   const [token, setToken] = useState(null);

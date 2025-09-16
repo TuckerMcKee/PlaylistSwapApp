@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import pool from '../db/index.js';
 import { SECRET_KEY } from '../config/index.js';
 
-const registerUser = async (req, res) => {
+export const registerUser = async (req, res) => {
   const { username, password } = req.body;
   if (!username || !password) {
     return res.status(400).json({ error: 'Missing username or password' });
@@ -26,7 +26,7 @@ const registerUser = async (req, res) => {
   }
 };
 
-const loginUser = async (req, res) => {
+export const loginUser = async (req, res) => {
   const { username, password } = req.body;
   if (!username || !password) {
     return res.status(400).json({ error: 'Missing username or password' });
@@ -54,8 +54,7 @@ const loginUser = async (req, res) => {
   }
 };
 
-const getCurrentUser = (req, res) => {
+export const getCurrentUser = (req, res) => {
   res.json({ user: req.user });
 };
 
-export default {registerUser,loginUser,getCurrentUser};

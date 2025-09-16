@@ -7,7 +7,7 @@ const { oauth2Client } = youtubeAuth;
 const YT_BASE_URL = YOUTUBE_API;
 const key = YOUTUBE_API_KEY;
 
-const getYoutubePlaylistSongs = async (req, res, next) => {
+export const getYoutubePlaylistSongs = async (req, res, next) => {
   try {
     const playlistId = req.params.playlistId;
     if (playlistId) {
@@ -28,7 +28,7 @@ const getYoutubePlaylistSongs = async (req, res, next) => {
   }
 };
 
-const searchYoutubeSongs = async (req, res, next) => {
+export const searchYoutubeSongs = async (req, res, next) => {
   try {
     const ytVideoIds = [];
     const notFound = [];
@@ -66,7 +66,7 @@ const searchYoutubeSongs = async (req, res, next) => {
   }
 };
 
-const createYoutubePlaylist = async (req, res, next) => {
+export const createYoutubePlaylist = async (req, res, next) => {
   try {
     const token = oauth2Client.credentials.access_token;
     const playlistData = {
@@ -94,7 +94,7 @@ const createYoutubePlaylist = async (req, res, next) => {
   }
 };
 
-const addSongsToYoutubePlaylist = async (req, res, next) => {
+export const addSongsToYoutubePlaylist = async (req, res, next) => {
   try {
     const token = oauth2Client.credentials.access_token;
     const { playlistId, ytVideoIds } = req.body;
@@ -126,7 +126,7 @@ const addSongsToYoutubePlaylist = async (req, res, next) => {
   }
 };
 
-const getYoutubeAuthUrl = async (req, res, next) => {
+export const getYoutubeAuthUrl = async (req, res, next) => {
   try {
     console.log(oauth2Client);
     console.log('youtubeAuth.state: ', youtubeAuth.state);
@@ -138,7 +138,7 @@ const getYoutubeAuthUrl = async (req, res, next) => {
   }
 };
 
-const handleYoutubeAuthCallback = async (req, res, next) => {
+export const handleYoutubeAuthCallback = async (req, res, next) => {
   try {
     const q = new URL(req.url, 'http://localhost').searchParams;
 
@@ -161,9 +161,3 @@ const handleYoutubeAuthCallback = async (req, res, next) => {
   }
 };
 
-export default {getYoutubePlaylistSongs,
-    searchYoutubeSongs,
-    createYoutubePlaylist,
-    addSongsToYoutubePlaylist,
-    getYoutubeAuthUrl,
-    handleYoutubeAuthCallback};

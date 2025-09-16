@@ -4,7 +4,7 @@ import { SPOTIFY_API } from '../config/index.js';
 
 const SPOTIFY_BASE_URL = SPOTIFY_API;
 
-const ensureSpotifyToken = async (req, res, next) => {
+export const ensureSpotifyToken = async (req, res, next) => {
   try {
     if (!req.session.spotifyToken) {
       const token = await getToken();
@@ -17,7 +17,7 @@ const ensureSpotifyToken = async (req, res, next) => {
   }
 };
 
-const getSpotifyPlaylistSongs = async (req, res, next) => {
+export const getSpotifyPlaylistSongs = async (req, res, next) => {
   try {
     const playlistId = req.params.playlistId;
     if (playlistId) {
@@ -42,4 +42,4 @@ const getSpotifyPlaylistSongs = async (req, res, next) => {
   }
 };
 
-export default {ensureSpotifyToken,getSpotifyPlaylistSongs};
+

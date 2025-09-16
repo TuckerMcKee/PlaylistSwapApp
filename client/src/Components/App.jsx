@@ -28,7 +28,7 @@ function App() {
         <Routes>
           <Route path='/' element={token ? <PlatformMenu /> : <Navigate to="/login" />}/>
           <Route path="/login" element={<Login setToken={setToken} />} />
-          <Route path="/register" element={<Register />} />
+          <Route path="/register" element={<Register setToken={setToken}/>} />
           <Route path='/callback' element={token ? <FetchToken /> : <Navigate to="/login" />}/>
           <Route path='/playlist/:platform' element={token ? <PlaylistForm /> : <Navigate to="/login" />}/>
         </Routes>

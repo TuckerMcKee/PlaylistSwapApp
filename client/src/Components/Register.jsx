@@ -4,7 +4,7 @@ import { useNavigate, Link } from 'react-router-dom';
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || '';
 
-const Register = () => {
+const Register = ({setToken}) => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ username: '', password: '' });
   const [errMsg, setErrMsg] = useState(null);
@@ -18,8 +18,13 @@ const Register = () => {
     event.preventDefault();
     setErrMsg(null);
     try {
-      await axios.post(`${BACKEND_URL}/auth/register`, formData);
-      navigate('/login');
+      const res = await axios.post(`${BACKEND_URL}/auth/register`, formData);
+      const token = res.data?.token;
+      if (token) {
+        localStorage.setItem('token', token);
+        if (setToken) setToken(token);
+      }
+      navigate('/');
     } catch (err) {
       const msg = err.response?.data?.error || 'Registration failed';
       setErrMsg(msg);

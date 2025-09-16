@@ -16,7 +16,10 @@ export const registerUser = async (req, res) => {
       [username, hashedPassword]
     );
     const user = result.rows[0];
-    res.status(201).json({ user });
+    const token = jwt.sign({ id: user.id, username: user.username }, SECRET_KEY, {
+      expiresIn: '1h',
+    });
+    res.status(201).json({ token, user });
   } catch (err) {
     console.error(err);
     if (err.code === '23505') {

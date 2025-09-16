@@ -1,10 +1,10 @@
 import React from 'react';
 import { BrowserRouter,Routes,Route } from 'react-router';
-import PlatformMenu from './Components/PlatformMenu';
-import PlaylistForm from './Components/PlaylistForm';
-import FetchToken from './Components/FetchToken';
+import PlatformMenu from './PlatformMenu';
+import PlaylistForm from './PlaylistForm';
+import FetchToken from './FetchToken';
 import './Styles/App.css'
-import NavBar from './Components/NavBar';
+import NavBar from './NavBar';
 
 function App() {
 

@@ -3,7 +3,7 @@ import { BrowserRouter,Routes,Route } from 'react-router';
 import PlatformMenu from './PlatformMenu';
 import PlaylistForm from './PlaylistForm';
 import FetchToken from './FetchToken';
-import './Styles/App.css'
+import '../Styles/App.css'
 import NavBar from './NavBar';
 
 function App() {

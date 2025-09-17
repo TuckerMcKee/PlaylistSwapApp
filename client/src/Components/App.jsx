@@ -27,7 +27,7 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <NavBar token={token} onLogout={handleLogout} />
+        <NavBar token={token} onLogout={handleLogout} user={user}/>
         <Routes>
           <Route path='/' element={token ? <PlatformMenu /> : <Navigate to="/login" />}/>
           <Route path="/login" element={<Login setToken={setToken} setUser={setUser} />} />

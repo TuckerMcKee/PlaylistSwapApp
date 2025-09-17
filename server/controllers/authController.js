@@ -19,7 +19,7 @@ export const registerUser = async (req, res) => {
     const token = jwt.sign({ id: user.id, username: user.username }, SECRET_KEY, {
       expiresIn: '1h',
     });
-    res.status(201).json({ token, user });
+    res.status(201).json({ token, user:user.username });
   } catch (err) {
     console.error(err);
     if (err.code === '23505') {
@@ -50,7 +50,7 @@ export const loginUser = async (req, res) => {
     const token = jwt.sign({ id: user.id, username: user.username }, SECRET_KEY, {
       expiresIn: '1h',
     });
-    res.json({ token });
+    res.json({ token, user:user.username });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Internal server error' });

@@ -4,7 +4,7 @@ import { useNavigate, Link } from 'react-router-dom';
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || '';
 
-const Register = ({setToken}) => {
+const Register = ({setToken,setUser}) => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ username: '', password: '' });
   const [errMsg, setErrMsg] = useState(null);
@@ -20,9 +20,14 @@ const Register = ({setToken}) => {
     try {
       const res = await axios.post(`${BACKEND_URL}/auth/register`, formData);
       const token = res.data?.token;
+      const currUser = res.data?.user;
       if (token) {
         localStorage.setItem('token', token);
         if (setToken) setToken(token);
+      }
+      if (currUser) {
+        localStorage.setItem('user', currUser);
+        if (setUser) setUser(currUser);
       }
       navigate('/');
     } catch (err) {

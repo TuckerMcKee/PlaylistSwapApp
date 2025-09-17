@@ -68,7 +68,7 @@ describe('registerUser', () => {
     expect(queryMock).not.toHaveBeenCalled();
   });
 
-  it('creates a new user and returns a token', async () => {
+  it('creates a new user and returns a token with username', async () => {
     hashMock.mockResolvedValue('hashed-password');
     queryMock.mockResolvedValue({ rows: [{ id: 1, username: 'new-user' }] });
     signMock.mockReturnValue('jwt-token');
@@ -87,7 +87,7 @@ describe('registerUser', () => {
       expiresIn: '1h',
     });
     expect(res.status).toHaveBeenCalledWith(201);
-    expect(res.json).toHaveBeenCalledWith({ token: 'jwt-token', user: { id: 1, username: 'new-user' } });
+    expect(res.json).toHaveBeenCalledWith({ token: 'jwt-token', user: 'new-user' });
     expect(consoleErrorSpy).not.toHaveBeenCalled();
   });
 
@@ -169,7 +169,7 @@ describe('loginUser', () => {
     expect(signMock).not.toHaveBeenCalled();
   });
 
-  it('returns a token when credentials are valid', async () => {
+  it('returns a token and username when credentials are valid', async () => {
     queryMock.mockResolvedValue({
       rows: [{ id: 5, username: 'user', password_hash: 'hashed-password' }],
     });
@@ -185,7 +185,7 @@ describe('loginUser', () => {
     expect(signMock).toHaveBeenCalledWith({ id: 5, username: 'user' }, 'test-secret', {
       expiresIn: '1h',
     });
-    expect(res.json).toHaveBeenCalledWith({ token: 'jwt-token' });
+    expect(res.json).toHaveBeenCalledWith({ token: 'jwt-token',user: 'user' });
     expect(res.status).not.toHaveBeenCalled();
   });
 

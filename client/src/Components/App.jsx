@@ -10,10 +10,13 @@ import Register from './Register';
 
 function App() {
   const [token, setToken] = useState(null);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     const stored = localStorage.getItem('token');
+    const currUser = localStorage.getItem('user');
     if (stored) setToken(stored);
+    if (currUser) setUser(currUser);
   }, []);
 
   const handleLogout = () => {
@@ -27,8 +30,8 @@ function App() {
         <NavBar token={token} onLogout={handleLogout} />
         <Routes>
           <Route path='/' element={token ? <PlatformMenu /> : <Navigate to="/login" />}/>
-          <Route path="/login" element={<Login setToken={setToken} />} />
-          <Route path="/register" element={<Register setToken={setToken}/>} />
+          <Route path="/login" element={<Login setToken={setToken} setUser={setUser} />} />
+          <Route path="/register" element={<Register setToken={setToken}/>} setUser={setUser}/>
           <Route path='/callback' element={token ? <FetchToken /> : <Navigate to="/login" />}/>
           <Route path='/playlist/:platform' element={token ? <PlaylistForm /> : <Navigate to="/login" />}/>
         </Routes>

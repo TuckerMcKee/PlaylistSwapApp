@@ -4,7 +4,7 @@ import { useNavigate, Link } from 'react-router-dom';
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || '';
 
-const Login = ({ setToken }) => {
+const Login = ({ setToken, setUser }) => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ username: '', password: '' });
   const [errMsg, setErrMsg] = useState(null);
@@ -20,8 +20,11 @@ const Login = ({ setToken }) => {
     try {
       const res = await axios.post(`${BACKEND_URL}/auth/login`, formData);
       const token = res.data.token;
+      const currUser = res.data.user;
       localStorage.setItem('token', token);
+      localStorage.setItem('user',currUser);
       setToken(token);
+      setUser(currUser);
       navigate('/');
     } catch (err) {
       const msg = err.response?.data?.error || 'Login failed';

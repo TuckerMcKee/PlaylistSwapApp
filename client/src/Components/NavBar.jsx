@@ -10,7 +10,9 @@ const NavBar = ({ token, onLogout, user}) => {
         <>
           <Link className='home-link' to="/">Home</Link>
           <button className='home-link' onClick={onLogout}>Logout</button>
-          <h2>Welcome, {user}</h2>
+          <div className="nav-user-container">
+            <h2 className='nav-username'>Welcome, {user}</h2>
+          </div>
         </>
       ) : (
         <>

@@ -45,7 +45,7 @@ const redirectToSpotifyLogin = async () => {
 
 
 
-const getToken = async () => {
+const getSpotifyToken = async () => {
 
     const urlParams = new URLSearchParams(window.location.search);
     const code = urlParams.get('code');
@@ -71,8 +71,8 @@ const getToken = async () => {
     const body = await fetch(url, payload);
     const response = await body.json();
     
-    localStorage.setItem('access_token', response.access_token);
+    localStorage.setItem('spotify_token', response.access_token);
   }
   
 
-export {redirectToSpotifyLogin,getToken};
+export {redirectToSpotifyLogin,getSpotifyToken};

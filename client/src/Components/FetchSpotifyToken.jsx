@@ -1,19 +1,19 @@
 import React from "react";
 import { useEffect } from "react";
 import {useNavigate} from 'react-router-dom';
-import {getToken} from "../Auth/spotifyAuth";
+import {getSpotifyToken} from "../Auth/spotifyAuth";
 
-const FetchToken = () => {
+const FetchSpotifyToken = () => {
     const navigate = useNavigate();
     useEffect(() => {
         try {
-            getToken()
+            getSpotifyToken()
         } catch (e) {
-            console.log('in getToken, e:',e)
+            console.log('in getSpotifyToken, e:',e)
         }
         navigate('/playlist/spotify');
     },[])
     return <h1>Redirecting...</h1>
 }
 
-export default FetchToken;
+export default FetchSpotifyToken;

@@ -5,12 +5,12 @@ import SpotifyApi from "../Apis/SpotifyApi";
 import YoutubeApi from "../Apis/YoutubeApi";
 import LinkBox from "./LinkBox";
 import "../Styles/PlaylistForm.css";
-let token;
+let spotifyToken;
 
 const PlaylistForm = () => {
   const { platform } = useParams();
   const navigate = useNavigate();
-  token = localStorage.getItem("access_token");
+  spotifyToken = localStorage.getItem("spotify_token");
   const [errMsg, setErrMsg] = useState(null);
   const [isLoading,setIsLoading] = useState(false);
   const [notFoundSongs, setNotFoundSongs] = useState([]);
@@ -19,8 +19,8 @@ const PlaylistForm = () => {
   useEffect(() => {
     if (platform !== "youtube" && platform !== "spotify") navigate("/");
     if (platform === "spotify") {
-        token = localStorage.getItem("access_token");
-      if (!token) navigate("/");
+        spotifyToken = localStorage.getItem("spotify_token");
+      if (!spotifyToken) navigate("/");
     }
   }, []);
 
@@ -43,7 +43,7 @@ const PlaylistForm = () => {
         setIsLoading(true);
         const res = await SpotifyApi.handleConversion(
           formData.playlistUrl,
-          token
+          spotifyToken
         );
         setIsLoading(false);
         setNewPlaylistUrl(res.spotifyUrl);

@@ -1,7 +1,7 @@
 import {RedisStore} from "connect-redis";
 import session from 'express-session';
 import {createClient} from "redis";
-import { REDIS_URL, SECRET_KEY } from '../config/index.js';
+import { REDIS_URL, SECRET_KEY, NODE_ENV } from '../config/index.js';
 
 // Initialize client.
 let redisClient = createClient({
@@ -20,7 +20,7 @@ const redisSession = session({
     secret: SECRET_KEY || 'default-secret-key',
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: true } // Secure should be true in production (HTTPS)
+    cookie: { secure: NODE_ENV === 'production' } // Secure should be true in production (HTTPS)
   })
 
   export default redisSession;

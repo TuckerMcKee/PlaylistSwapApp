@@ -86,8 +86,8 @@ describe('youtubeController', () => {
       );
       expect(parseYoutubeTitleMock).toHaveBeenCalledTimes(titles.length);
       expect(res.json).toHaveBeenCalledWith([
-        { parsed: 'Artist 1 - Song 1' },
-        { parsed: 'Artist 2 - Song 2' },
+        { parsed: 'Artist 1 - Song 1', artist:'' },
+        { parsed: 'Artist 2 - Song 2', artist:'' },
       ]);
       expect(next).not.toHaveBeenCalled();
     });

@@ -7,7 +7,10 @@ const FetchSpotifyToken = () => {
     const navigate = useNavigate();
     useEffect(() => {
         try {
-            getSpotifyToken()
+            const waitForToken = async () => {
+                await getSpotifyToken();
+            };
+            waitForToken();
         } catch (e) {
             console.log('in getSpotifyToken, e:',e)
         }

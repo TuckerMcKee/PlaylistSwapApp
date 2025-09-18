@@ -15,7 +15,7 @@ if (redisUrl) {
     const redisClient = createClient({
       url: redisUrl,
       socket: {
-        tls: true, // KVS uses TLS
+        tls: NODE_ENV === 'production', // KVS uses TLS
         rejectUnauthorized: false,
         connectTimeout: 5000,                  // fail fast, don’t hang requests
       },

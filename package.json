@@ -12,7 +12,7 @@
     "dev": "concurrently -k -n server,client \"npm:server\" \"npm:client\"",
     "build": "npm run build:client",
     "build:client": "cd client && npm install && npm run build",
-    "heroku-postbuild": "npm run build:client",
+    "heroku-postbuild": "npm ci --prefix client --include=dev && npm run build --prefix client && npm prune --omit=dev --prefix client",
     "test": "cd ./server && npm run test",
     "db:init": "bash scripts/setup_db.sh",
     "db:reset": "dropdb playlistswap || true && npm run db:init",

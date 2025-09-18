@@ -31,19 +31,23 @@ class SpotifyApi {
     //accepts array of songData objects {songTitle,artist} and auth token returns array of Spotify Uris (these are needed for adding tracks to spotify playlists)
     static getSpotifyUris = async (songData,token) => {
         try {
+            console.log('songData in spotify URIs: ',songData)
             if (!token) throw new Error('Unauthorized');
             const spotifyNotFound = [];
             const spotifyUris = [];
             for (let data of songData) { 
+                console.log('song data: ',data)
                 const title = data.songTitle;
                 const artist = data.artist;
-                const params = {q:title,type:'track',artist:artist,limit:'1'};
+                const params = {q:title,type:'track',artist:artist,limit:'5'};
                 const headers = {Authorization:`Bearer ${token}`};
                 const res = await axios.get(`${BASE_URL}/search`,{params,headers});
-                const song = res.data.tracks.items[0];
-                if (song.artists[0].name.toLowerCase() === artist.toLowerCase() && 
-                song.name.toLowerCase() === title.toLowerCase()) {
-                    spotifyUris.push(song.uri);
+                const tracks = res.data.tracks.items;
+                const songMatches = tracks.filter(song => {
+                    return song.artists[0].name?.toLowerCase().trim() === artist?.toLowerCase().trim() && song.name?.toLowerCase().trim() === title?.toLowerCase().trim()
+                })
+                if (songMatches.length > 0) {
+                    spotifyUris.push(songMatches[0].uri);
                 }
                 else {
                     spotifyNotFound.push(data);
@@ -52,6 +56,7 @@ class SpotifyApi {
             return {spotifyUris,spotifyNotFound}
         } catch (e) {
             console.log('in SpotifyApi getSpotifyUris, e:  ',e)
+            throw new Error(e.message);
         }
     }
 
@@ -109,7 +114,7 @@ class SpotifyApi {
                     notFound.push(s);}
             })
             
-            const filteredSongData = songData.filter(s => s.title !== null);
+            const filteredSongData = songData.filter(s => s.songTitle !== null);
             if (filteredSongData.length === 0) throw new Error('No valid songs found in YouTube playlist.');
             const {spotifyUris,spotifyNotFound} = await SpotifyApi.getSpotifyUris(filteredSongData,token);
             

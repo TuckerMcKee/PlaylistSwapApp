@@ -80,7 +80,7 @@ const PlaylistForm = () => {
       </form>
       {/* <button className="home-btn" onClick={() => navigate('/')}>Home</button> */}
       <p id="err-container">{errMsg ? errMsg : null}</p>
-      <ScaleLoader loading={isLoading}/>
+      <ScaleLoader loading={isLoading} color={'#FFFFFF'} width={10}/>
       {newPlaylistUrl ? <LinkBox link={newPlaylistUrl} /> : null}
       <section>
         {notFoundSongs[0] && platform === "spotify" ? (

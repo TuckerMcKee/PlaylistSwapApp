@@ -10,17 +10,21 @@ const key = YOUTUBE_API_KEY;
 
 export const getYoutubePlaylistSongs = async (req, res, next) => {
   try {
+    console.log('hello from getYoutubePlaylistSongs');
     const playlistId = req.params.playlistId;
     if (playlistId) {
       const ytRes = await axios.get(
         `${YT_BASE_URL}/playlistItems?part=snippet&playlistId=${playlistId}&key=${key}`
       );
-      const youtubeTitles = [];
+      const songs = [];
+      console.log("youtube data: ",ytRes.data.items[0].snippet)
       ytRes.data.items.forEach((i) => {
-        youtubeTitles.push(i.snippet.title);
-      });
-      const songs = youtubeTitles.map((t) => parseYoutubeTitle(t));
-      console.log(songs);
+          let songData = parseYoutubeTitle(i.snippet.title);
+          if (!songData.artist) songData.artist = parseArtistName(i.snippet.videoOwnerChannelTitle);
+          songs.push(songData);
+        });
+
+      
       res.json(songs);
     }
   } catch (e) {
@@ -37,7 +41,7 @@ export const searchYoutubeSongs = async (req, res, next) => {
 
     for (let song of songData) {
       const query = `${song.artist} - ${song.songTitle}`;
-      console.log("song q: ",query)
+      
       const ytRes = await axios.get(`${YT_BASE_URL}/search`, {
         params: {
           key: key,
@@ -48,10 +52,8 @@ export const searchYoutubeSongs = async (req, res, next) => {
           videoCategoryId: '10',
         },
       });
-      console.log(ytRes)
       for (let [index, item] of ytRes.data.items.entries()) {
         const title = item.snippet.title;
-        console.log('search res titles: ',title)
         //if no artist in youtube video title, artist name is take from channel title
         let { songTitle, artist } = parseYoutubeTitle(title);
         if (!artist) artist = parseArtistName(item.snippet.channelTitle);

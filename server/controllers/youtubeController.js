@@ -1,5 +1,6 @@
 import axios from 'axios';
 import parseYoutubeTitle from '../helpers/parseYoutubeTitle.js';
+import { parseArtistName } from '../helpers/parseArtistName.js';
 import youtubeAuth from '../helpers/youtubeAuth.js';
 import { YOUTUBE_API, CLIENT_URL, YOUTUBE_API_KEY } from '../config/index.js';
 
@@ -36,6 +37,7 @@ export const searchYoutubeSongs = async (req, res, next) => {
 
     for (let song of songData) {
       const query = `${song.artist} - ${song.songTitle}`;
+      console.log("song q: ",query)
       const ytRes = await axios.get(`${YT_BASE_URL}/search`, {
         params: {
           key: key,
@@ -46,11 +48,15 @@ export const searchYoutubeSongs = async (req, res, next) => {
           videoCategoryId: '10',
         },
       });
-
+      console.log(ytRes)
       for (let [index, item] of ytRes.data.items.entries()) {
         const title = item.snippet.title;
-        const { songTitle, artist } = parseYoutubeTitle(title);
-        if (songTitle === song.songTitle && artist === song.artist) {
+        console.log('search res titles: ',title)
+        //if no artist in youtube video title, artist name is take from channel title
+        let { songTitle, artist } = parseYoutubeTitle(title);
+        if (!artist) artist = parseArtistName(item.snippet.channelTitle);
+        
+        if (songTitle?.toLowerCase().trim() === song.songTitle?.toLowerCase().trim() && artist?.toLowerCase().trim() === song.artist?.toLowerCase().trim()) {
           ytVideoIds.push(item.id.videoId);
           break;
         }

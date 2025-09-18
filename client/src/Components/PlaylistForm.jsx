@@ -58,8 +58,9 @@ const PlaylistForm = () => {
         if (notFound[0]) setNotFoundSongs(notFound);
       }
       return setFormData(INITIAL_STATE);
-    } catch (event) {
-      setErrMsg(event.message);
+    } catch (err) {
+      setIsLoading(false);
+      setErrMsg(err.message);
     }
   };
   return (

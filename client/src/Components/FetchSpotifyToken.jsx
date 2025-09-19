@@ -8,14 +8,19 @@ const FetchSpotifyToken = () => {
     useEffect(() => {
         try {
             const waitForToken = async () => {
-                await getSpotifyToken();
+                try {
+                    await getSpotifyToken();
+                    navigate('/playlist/spotify');
+                } catch (error) {
+                    console.error('Error fetching Spotify token:', error);
+                    navigate('/');
+                }
             };
             waitForToken();
         } catch (e) {
             console.log('in getSpotifyToken, e:',e)
         }
-        navigate('/playlist/spotify');
-    },[])
+    },[navigate])
     return <h1>Redirecting...</h1>
 }
 

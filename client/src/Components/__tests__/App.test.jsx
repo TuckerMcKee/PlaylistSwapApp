@@ -1,5 +1,6 @@
 import { describe, it, beforeEach, afterEach, expect } from 'vitest';
 import { render, screen, cleanup } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import App from '../App.jsx';
 
 describe('App', () => {
@@ -16,14 +17,20 @@ describe('App', () => {
     localStorage.setItem('token', 'test_token');
     localStorage.setItem('user', 'test_user');
 
-    render(<App />);
+    render(
+      <MemoryRouter initialEntries={['/']}>
+        <App />
+      </MemoryRouter>);
 
     expect(screen.getByText(/Choose your destination platform/i)).toBeInTheDocument();
     expect(screen.getByText(/Welcome, test_user/i)).toBeInTheDocument();
   });
 
   it('redirects to login when no token is stored', async () => {
-    render(<App />);
+    render(
+      <MemoryRouter initialEntries={['/']}>
+        <App />
+      </MemoryRouter>);
 
     expect(await screen.findByRole('heading', { name: /login/i })).toBeInTheDocument();
   });

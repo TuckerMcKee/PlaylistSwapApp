@@ -70,6 +70,7 @@ const PlaylistForm = () => {
         <input
           type="text"
           name="playlistUrl"
+          id="playlistUrl"
           onChange={handleChange}
           value={formData.playlistUrl}
         />

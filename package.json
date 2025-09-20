@@ -13,7 +13,9 @@
     "build": "npm run build:client",
     "build:client": "cd client && npm install && npm run build",
     "heroku-postbuild": "npm ci --prefix client --include=dev && npm run build --prefix client && npm prune --omit=dev --prefix client",
-    "test": "cd ./server && npm run test",
+    "test": "npm run test:server && npm run test:client",
+    "test:server": "npm --prefix server test",
+    "test:client": "npm --prefix client test",
     "db:init": "bash scripts/setup_db.sh",
     "db:reset": "dropdb playlistswap || true && npm run db:init",
     "db:schema": "psql \"$DATABASE_URL\" -v ON_ERROR_STOP=1 -f server/db/schema.sql"

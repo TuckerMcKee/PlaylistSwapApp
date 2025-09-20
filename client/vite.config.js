@@ -10,4 +10,8 @@ export default defineConfig({
     include: ['react', 'react-dom'],  // Explicitly optimize react and react-dom
   },
   plugins: [react()],
+  test: {
+    environment:'jsdom',
+    setupFiles:'./setupTests.js'
+  }
 })

@@ -12,7 +12,6 @@ export const ensureSpotifyToken = async (req, res, next) => {
     }
     next();
   } catch (err) {
-    console.error('Spotify token middleware error:', err);
     res.status(500).json({ error: 'Failed to get Spotify token' });
   }
 };
@@ -37,7 +36,7 @@ export const getSpotifyPlaylistSongs = async (req, res, next) => {
       res.json(songData);
     }
   } catch (e) {
-    console.log('in spotify/songs/:playlistId, e: ', e);
+    // console.log('in spotify/songs/:playlistId, e: ', e);
     next(e);
   }
 };

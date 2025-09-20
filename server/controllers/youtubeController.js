@@ -10,14 +10,12 @@ const key = YOUTUBE_API_KEY;
 
 export const getYoutubePlaylistSongs = async (req, res, next) => {
   try {
-    console.log('hello from getYoutubePlaylistSongs');
     const playlistId = req.params.playlistId;
     if (playlistId) {
       const ytRes = await axios.get(
         `${YT_BASE_URL}/playlistItems?part=snippet&playlistId=${playlistId}&key=${key}`
       );
       const songs = [];
-      console.log("youtube data: ",ytRes.data.items[0].snippet)
       ytRes.data.items.forEach((i) => {
           let songData = parseYoutubeTitle(i.snippet.title);
           if (!songData.artist) songData.artist = parseArtistName(i.snippet.videoOwnerChannelTitle);
@@ -69,7 +67,6 @@ export const searchYoutubeSongs = async (req, res, next) => {
     }
     res.json({ ytVideoIds, notFound });
   } catch (e) {
-    console.log(e);
     next(e);
   }
 };
@@ -95,7 +92,6 @@ export const createYoutubePlaylist = async (req, res, next) => {
         },
       }
     );
-    console.log('playlist created! ytRes.data.id: ', ytRes.data.id);
     res.json(ytRes.data.id);
   } catch (e) {
     res.json(null);
@@ -136,10 +132,10 @@ export const addSongsToYoutubePlaylist = async (req, res, next) => {
 
 export const getYoutubeAuthUrl = async (req, res, next) => {
   try {
-    console.log(oauth2Client);
-    console.log('youtubeAuth.state: ', youtubeAuth.state);
+    // console.log(oauth2Client);
+    // console.log('youtubeAuth.state: ', youtubeAuth.state);
     req.session.state = youtubeAuth.state;
-    console.log('req.session.state: ', req.session.state);
+    // console.log('req.session.state: ', req.session.state);
     res.json(youtubeAuth.authorizationUrl);
   } catch (e) {
     next(e);
@@ -155,9 +151,9 @@ export const handleYoutubeAuthCallback = async (req, res, next) => {
     const code = q.get('code');
 
     if (qState !== req.session.state) {
-      console.log('qState: ', qState);
-      console.log('req.session.state: ', req.session.state);
-      console.log('State mismatch. Possible CSRF attack');
+      // console.log('qState: ', qState);
+      // console.log('req.session.state: ', req.session.state);
+      // console.log('State mismatch. Possible CSRF attack');
       return res.redirect(`${CLIENT_URL}/`);
     } else {
       let { tokens } = await oauth2Client.getToken(code);

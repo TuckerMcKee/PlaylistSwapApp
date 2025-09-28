@@ -70,8 +70,9 @@ const getSpotifyToken = async () => {
   
     const body = await fetch(url, payload);
     const response = await body.json();
-    
-    localStorage.setItem('spotify_token', response.access_token);
+    if (response.access_token ==! undefined) {
+      localStorage.setItem('spotify_token', response.access_token);
+    }
   }
   
 
